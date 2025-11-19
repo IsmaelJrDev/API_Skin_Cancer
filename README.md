@@ -1,222 +1,65 @@
-# 🏥 API de Detección de Cáncer de Piel
+# 🩺 API Skin Cancer Detection
 
-API desarrollada como evaluación de la materia de graficación, la cual permite a los usuarios enviar una foto de la piel y detectar si tiene cáncer o no utilizando redes neuronales convolucionales (ResNet y AlexNet).
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Django](https://img.shields.io/badge/Django-5.0-green)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-2.15-orange)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248)
 
-## 🚀 Características
+Un sistema de **apoyo al diagnóstico dermatológico** basado en Inteligencia Artificial. Esta aplicación web permite a los usuarios subir imágenes dermatoscópicas y recibir una predicción sobre la naturaleza de la lesión (benigna o maligna) utilizando modelos de **Deep Learning (ResNet50 y AlexNet)** entrenados con el dataset HAM10000.
 
-- **Detección de Cáncer de Piel**: Utiliza modelos de deep learning para detectar cáncer de piel en imágenes
-- **Dos Modelos Disponibles**: 
-  - **ResNet50**: Red neuronal profunda con arquitectura residual
-  - **AlexNet**: Arquitectura clásica de deep learning
-- **Visualización de Áreas**: Grad-CAM para mostrar dónde se detecta el cáncer en la imagen
-- **Frontend Moderno**: Interfaz web profesional con TailwindCSS
-- **API RESTful**: Endpoints para integración con otras aplicaciones
+La aplicación registra automáticamente el historial de diagnósticos en **MongoDB Atlas** y cuenta con una interfaz moderna construida con **TailwindCSS**.
 
-## 🛠️ Tecnologías
+---
 
-- **Backend**: Django 5.0, Django REST Framework
-- **Machine Learning**: TensorFlow 2.15, Keras
-- **Procesamiento de Imágenes**: OpenCV, Pillow
-- **Frontend**: HTML5, TailwindCSS, JavaScript
-- **Tunneling**: ngrok, rathole
+## 🚀 Características Principales
 
-## 📋 Requisitos
+* **Multi-Modelo:** El usuario puede elegir entre dos arquitecturas neuronales:
+    * **ResNet50** (Transfer Learning): Alta precisión.
+    * **AlexNet** (Custom Architecture): Modelo clásico entrenado desde cero.
+* **Análisis en Tiempo Real:** Procesamiento de imágenes y predicción en segundos.
+* **Historial en la Nube:** Cada diagnóstico se guarda en MongoDB Atlas con metadatos (fecha, confianza, tipo de lesión).
+* **Interfaz Responsive:** Frontend profesional diseñado con TailwindCSS.
+* **Detección de Riesgo:** Sistema de alertas automático si la lesión es clasificada como Melanoma o Carcinoma.
 
-- Python 3.8+
-- pip
-- Virtual environment (recomendado)
+---
 
-## 🔧 Instalación
+## 🛠️ Stack Tecnológico
 
-### 1. Clonar el repositorio
+* **Backend:** Django (Python)
+* **IA / ML:** TensorFlow, Keras, OpenCV, NumPy
+* **Base de Datos:** MongoDB Atlas (para logs e historial)
+* **Frontend:** HTML5, TailwindCSS (vía CDN)
+* **Despliegue / Exposición:** Ngrok (para acceso remoto seguro)
 
-```bash
-git clone <url-del-repositorio>
-cd API_Skin_Cancer
-```
+---
 
-### 2. Crear y activar entorno virtual
-
-```bash
-python -m venv venv
-source venv/bin/activate  # En Linux/Mac
-# o
-venv\Scripts\activate  # En Windows
-```
-
-### 3. Instalar dependencias
+## 📂 Estructura del Proyecto
 
 ```bash
-pip install -r requirements.txt
-```
-
-### 4. Configurar variables de entorno
-
-```bash
-cp .env.example .env
-# Editar .env con tus configuraciones
-```
-
-Edita el archivo `.env` y agrega:
-```
-SECRET_KEY=tu-clave-secreta-aqui
-DEBUG=True
-NGROK_AUTH_TOKEN=tu-token-de-ngrok  # Opcional, para ngrok
-```
-
-### 5. Ejecutar migraciones
-
-```bash
-python manage.py migrate
-```
-
-### 6. Crear superusuario (opcional)
-
-```bash
-python manage.py createsuperuser
-```
-
-## 🚀 Uso
-
-### Iniciar servidor de desarrollo
-
-```bash
-python manage.py runserver
-```
-
-La aplicación estará disponible en `http://localhost:8000`
-
-### Iniciar con ngrok (para acceso público)
-
-```bash
-# Opción 1: Usar el script automatizado
-chmod +x scripts/start_server.sh
-./scripts/start_server.sh
-
-# Opción 2: Manual
-python manage.py runserver 8000 &
-python scripts/start_ngrok.py 8000
-```
-
-### Iniciar con rathole (requiere servidor remoto)
-
-1. Edita `scripts/rathole_config.toml` con tu configuración
-2. Ejecuta:
-```bash
-chmod +x scripts/start_rathole.sh
-./scripts/start_rathole.sh
-```
-
-## 📡 API Endpoints
-
-### POST `/api/detect/`
-
-Detecta cáncer de piel en una imagen.
-
-**Parámetros:**
-- `image` (file): Archivo de imagen a analizar
-- `model` (string, opcional): Modelo a usar (`resnet` o `alexnet`). Por defecto: `resnet`
-
-**Ejemplo con curl:**
-```bash
-curl -X POST http://localhost:8000/api/detect/ \
-  -F "image=@ruta/a/imagen.jpg" \
-  -F "model=resnet"
-```
-
-**Respuesta:**
-```json
-{
-  "success": true,
-  "detection_id": 1,
-  "has_cancer": false,
-  "confidence": 0.2345,
-  "model_used": "resnet",
-  "heatmap": "data:image/jpeg;base64,...",
-  "message": "No se detectó cáncer"
-}
-```
-
-### GET `/api/health/`
-
-Verifica el estado de la API.
-
-**Respuesta:**
-```json
-{
-  "status": "healthy",
-  "models_loaded": true
-}
-```
-
-## 🎨 Frontend
-
-El frontend está disponible en la ruta raíz (`/`) y permite:
-- Subir imágenes mediante drag & drop o selección de archivo
-- Seleccionar entre modelos ResNet50 y AlexNet
-- Visualizar resultados con mapa de calor (Grad-CAM)
-- Ver nivel de confianza de la detección
-
-## 🧠 Modelos de Machine Learning
-
-### ResNet50
-- Arquitectura: ResNet50 pre-entrenada en ImageNet
-- Capas personalizadas: GlobalAveragePooling2D, Dense layers con Dropout
-- Salida: Clasificación binaria (cáncer / no cáncer)
-
-### AlexNet (basado en VGG16)
-- Arquitectura: VGG16 pre-entrenada en ImageNet (arquitectura similar a AlexNet)
-- Capas personalizadas: Dense layers grandes (4096, 1024, 256) estilo AlexNet
-- Salida: Clasificación binaria (cáncer / no cáncer)
-- Nota: Usamos VGG16 como base ya que TensorFlow no incluye AlexNet pre-entrenado directamente
-
-### Grad-CAM
-- Visualización de áreas de interés en la imagen
-- Mapa de calor que muestra dónde el modelo detecta características relevantes
-
-## 📁 Estructura del Proyecto
-
-```
 API_Skin_Cancer/
-├── detection/              # App principal de detección
-│   ├── models.py          # Modelos de Django
-│   ├── views.py           # Vistas de la API
-│   ├── ml_models.py       # Modelos de ML (ResNet, AlexNet)
-│   └── urls.py            # URLs de la app
-├── skin_cancer_api/       # Configuración del proyecto
-│   ├── settings.py        # Configuración de Django
-│   └── urls.py            # URLs principales
-├── templates/             # Plantillas HTML
-│   └── index.html         # Frontend principal
-├── scripts/               # Scripts de utilidad
-│   ├── start_ngrok.py     # Script para ngrok
-│   ├── start_server.sh    # Script para iniciar servidor
-│   └── rathole_config.toml # Configuración de rathole
-├── media/                 # Archivos subidos (generado)
-├── models/                # Modelos entrenados (generado)
-└── requirements.txt       # Dependencias
-```
+├── core/                 # Configuración principal de Django (settings, urls)
+├── diagnosis/            # Aplicación lógica (vistas, modelos, templates)
+│   ├── templates/        # Interfaz de usuario (index.html)
+│   └── views.py          # Lógica de inferencia y conexión a Mongo
+├── media/                # Almacenamiento temporal de imágenes subidas
+├── modelos_entrenados/   # CARPETA CRÍTICA: Aquí deben ir los archivos .keras
+│   ├── modelo_final_skin_cancer_alexnet.keras
+│   └── modelo_final_skin_cancer_resnet.keras
+├── manage.py
+└── requirements.txt
+⚙️ Instalación y ConfiguraciónSigue estos pasos para ejecutar el proyecto en tu entorno local (Linux/Mac/Windows).1. Clonar el repositorioBashgit clone [https://github.com/IsmaelJrDev/API_Skin_Cancer.git](https://github.com/IsmaelJrDev/API_Skin_Cancer.git)
+cd API_Skin_Cancer
+2. Crear entorno virtualBash# Linux / Mac
+python -m venv venv
+source venv/bin/activate
 
-## ⚠️ Notas Importantes
-
-1. **Modelos Pre-entrenados**: Los modelos se crean automáticamente la primera vez que se ejecuta la aplicación. Para mejores resultados, deberías entrenar los modelos con un dataset de cáncer de piel.
-
-2. **Producción**: Este proyecto está configurado para desarrollo. Para producción:
-   - Cambia `DEBUG = False`
-   - Configura una base de datos adecuada (PostgreSQL, MySQL)
-   - Usa un servidor web (Gunicorn, uWSGI)
-   - Configura HTTPS
-
-3. **Datos Médicos**: Esta API es solo para fines educativos. No debe usarse para diagnósticos médicos reales sin validación clínica adecuada.
-
-## 📝 Licencia
-
-Ver archivo LICENSE
-
-## 👥 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor, abre un issue o pull request.
-
-## 📧 Contacto
-
-Para preguntas o soporte, abre un issue en el repositorio.
+# Windows
+python -m venv venv
+venv\Scripts\activate
+3. Instalar dependenciasBashpip install -r requirements.txt
+(Asegúrate de tener instaladas las librerías: django, tensorflow, opencv-python-headless, pymongo, dnspython, pillow, numpy)4. Colocar los Modelos EntrenadosDebido al límite de tamaño de GitHub, los modelos entrenados (.keras) no se incluyen en el repositorio.Crea una carpeta llamada modelos_entrenados en la raíz.Coloca tus archivos modelo_final_skin_cancer_resnet.keras y modelo_final_skin_cancer_alexnet.keras dentro.5. Configurar MongoDB AtlasCrea un clúster gratuito en MongoDB Atlas.Obtén tu Connection String.En core/settings.py, actualiza la variable:PythonMONGO_URI = "mongodb+srv://<usuario>:<password>@cluster..."
+▶️ EjecuciónModo LocalBashpython manage.py runserver
+Accede a http://127.0.0.1:8000.Modo Público (Acceso desde celular con Ngrok)Si deseas probar la aplicación desde un dispositivo móvil:Inicia el servidor Django en una terminal:Bashpython manage.py runserver
+En otra terminal, inicia el túnel con Ngrok:Bashngrok http 8000
+Copia la URL HTTPS generada (ej. https://tu-url.ngrok-free.app) y ábrela en tu celular.Nota: Si usas Ngrok, asegúrate de tener configurado CSRF_TRUSTED_ORIGINS en settings.py para evitar errores 403 Forbidden al subir imágenes.📊 Clases del Dataset (HAM10000)El modelo es capaz de clasificar las siguientes 7 lesiones:AbreviaturaNombre CompletoRiesgoakiecQueratosis Actínica⚠️ PrecancerosobccCarcinoma Basocelular🚨 MalignobklQueratosis Benigna✅ BenignodfDermatofibroma✅ BenignomelMelanoma🚨 Maligno (Alto Riesgo)nvNevus Melanocítico✅ Benigno (Lunar común)vascLesión Vascular✅ Benigno⚠️ Disclaimer MédicoADVERTENCIA: Esta herramienta es un prototipo desarrollado con fines académicos y de investigación.NO sustituye el diagnóstico de un profesional de la salud.Los resultados pueden tener márgenes de error.Ante cualquier duda sobre una lesión cutánea, consulte inmediatamente a un dermatólogo.👨‍💻 AutorIsmaelJrDevEstudiante de Ingeniería en Sistemas Computacionales.GitHub Profile
