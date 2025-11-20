@@ -23,8 +23,8 @@ def get_model(model_key):
         return loaded_models[model_key]
     
     file_map = {
-        #'resnet_model': 'modelo_final_skin_cancer_resnet.keras',
-        'alexnet_model': 'mejor_modelo_skin.keras'
+        'resnet_model': 'modelo_entrenado_resnet.keras',
+        'alexnet_model': 'modelo_entrenado_alexnet.keras'
     }
     filename = file_map.get(model_key)
     model_path = os.path.join(settings.BASE_DIR, 'modelos_entrenados', filename)
