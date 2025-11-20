@@ -16,7 +16,7 @@ La aplicación registra automáticamente el historial de diagnósticos en
 **MongoDB Atlas** y cuenta con una interfaz moderna construida con
 **TailwindCSS**.
 
-------------------------------------------------------------------------
+
 
 ## 🚀 Características Principales
 
@@ -34,7 +34,7 @@ La aplicación registra automáticamente el historial de diagnósticos en
 -   **Detección de Riesgo:** Sistema de alertas automático si la lesión
     es clasificada como Melanoma o Carcinoma.
 
-------------------------------------------------------------------------
+
 
 ## 🛠️ Stack Tecnológico
 
@@ -44,7 +44,7 @@ La aplicación registra automáticamente el historial de diagnósticos en
 -   **Frontend:** HTML5, TailwindCSS (CDN)
 -   **Exposición:** Ngrok
 
-------------------------------------------------------------------------
+
 
 ## 📂 Estructura del Proyecto
 
@@ -62,7 +62,7 @@ API_Skin_Cancer/
 └── requirements.txt
 ```
 
-------------------------------------------------------------------------
+
 
 ## ⚙️ Instalación y Configuración
 
@@ -102,7 +102,7 @@ En `core/settings.py`:
 MONGO_URI = "mongodb+srv://<usuario>:<password>@cluster..."
 ```
 
-------------------------------------------------------------------------
+
 
 ## ▶️ Ejecución
 
@@ -118,7 +118,7 @@ python manage.py runserver
 ngrok http 8000
 ```
 
-------------------------------------------------------------------------
+
 
 ## 📊 Clases del Dataset (HAM10000)
 
@@ -133,14 +133,13 @@ ngrok http 8000
 | vasc   | Lesión Vascular        | ✅ Benigno      |
 
 
-------------------------------------------------------------------------
 
 ## ⚠️ Disclaimer Médico
 
 Esta herramienta es un prototipo académico.\
 **No sustituye la opinión de un dermatólogo.**
 
-------------------------------------------------------------------------
+
 
 ## 👨‍💻 Autor
 
