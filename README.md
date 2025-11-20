@@ -122,15 +122,16 @@ ngrok http 8000
 
 ## 📊 Clases del Dataset (HAM10000)
 
-  Abrev.   Nombre                  Riesgo
-  -------- ----------------------- -----------------
-  akiec    Queratosis Actínica     ⚠️ Precanceroso
-  bcc      Carcinoma Basocelular   🚨 Maligno
-  bkl      Queratosis Benigna      ✅ Benigno
-  df       Dermatofibroma          ✅ Benigno
-  mel      Melanoma                🚨 Maligno
-  nv       Nevus Melanocítico      ✅ Benigno
-  vasc     Lesión Vascular         ✅ Benigno
+| Abrev. | Nombre                 | Riesgo          |
+|--------|-------------------------|-----------------|
+| akiec  | Queratosis Actínica    | ⚠️ Precanceroso |
+| bcc    | Carcinoma Basocelular  | 🚨 Maligno      |
+| bkl    | Queratosis Benigna     | ✅ Benigno      |
+| df     | Dermatofibroma         | ✅ Benigno      |
+| mel    | Melanoma               | 🚨 Maligno      |
+| nv     | Nevus Melanocítico     | ✅ Benigno      |
+| vasc   | Lesión Vascular        | ✅ Benigno      |
+
 
 ------------------------------------------------------------------------
 
